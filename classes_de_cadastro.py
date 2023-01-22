@@ -36,6 +36,44 @@ class Dev(Colaborador):
   def incluir_dev(self, dev):
     self.devs.append(dev)
     
+print('\n================================DATABASE================================')
+print('Bem vindo ao sistema de cadastro de squads!\n')
+while True:    
+    squads = []
+    nome_squad = input("\nNome da squad: ")
+    nome_techlead = input("Nome do techlead da squad: ")
+    fone_techlead = input("Telefone do techlead: ")
+    squad = Squad(nome_squad)
+    techlead = Colaborador(nome_techlead, fone_techlead)
+    squad.incluir_techlead(techlead)
+    techlead.incluir_squad(squad)
     
-    
-    
+
+    squads.append(squad)
+  
+    while True:
+      nome_dev = input("\nNome do desenvolvedor: ")
+      fone_dev = input("Telefone do desenvolvedor: ")
+      cargo_dev = input("Cargo do desenvolvedor: ")
+      dev = Dev(nome_dev, fone_dev, cargo_dev)
+      dev.incluir_squad(squad)
+      squad.incluir_dev(dev)
+        
+      option = input("\nDeseja adicionar mais um dev [S/N]: ")
+      if option in 'Nn':
+        break
+      
+    option = input("\nDeseja adicionar mais uma squad [S/N]: ")
+    if option in 'Nn':
+        break
+
+for squad in squads:
+    print(f'\n--------------------------------{squad.nome}--------------------------------')
+    print(f'\nTeachLead: {squad.techlead.nome}')
+    print(f'\n------Devs do squad--------')
+    for dev in squad.devs:
+      dev.exibir()
+    print(f'\n--------------------------------{squad.nome}--------------------------------')
+
+print('\n================================DATABASE================================')
+
